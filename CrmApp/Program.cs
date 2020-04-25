@@ -2,25 +2,32 @@
 
 namespace CrmApp
 {
-      class AnotherClass
+    class Program
     {
-         static void Main()
+        static void Main()
         {
-            string returnProduct;
-            string message = "Give the name of the product";
-            //method invocation or method call or method usage
-            returnProduct =  DoWork(message);
-            Console.WriteLine(returnProduct);
-        }
+            
+            Product myProduct = new Product
+            {
+                Code = "A1",
+                Name = "Chocolate",
+                Price = 1.2m,
+                Quantity = 10
+            };
 
-        //declaration of a method
-        static string DoWork(string message)
-        {
-            string product;
-            Console.WriteLine(message);
-            product = Console.ReadLine();
-            return product;
-        }
+            myProduct.Print();
 
+            Product a1 = new Product
+            {
+                Code = "A123",
+                Name = "Chicklets"
+            };
+
+            a1.Print();
+
+            decimal total = myProduct.GetTotalCost() + a1.GetTotalCost();
+            Console.WriteLine(total);
+
+        }
     }
 }
