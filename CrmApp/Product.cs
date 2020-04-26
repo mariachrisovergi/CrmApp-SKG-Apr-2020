@@ -26,6 +26,7 @@ namespace CrmApp
 
 
         //constructors
+        //constructor overloading
         public Product(int _category)
         {
              category = _category;
@@ -50,7 +51,7 @@ namespace CrmApp
         }
 
 
-
+        //methods
         public void IncreasePrice(decimal percentage)
         {
             if (category == 1) { 
@@ -67,6 +68,18 @@ namespace CrmApp
         {
             Console.WriteLine( ToString());
             Console.WriteLine();
+        }
+
+        public string GetRange()
+        {
+            if ( Price < 1)
+                return "low";
+            else if (Price  < 10)
+                return "medium";
+            else
+                return "hi";
+
+            
         }
  
     }
