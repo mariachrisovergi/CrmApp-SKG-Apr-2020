@@ -6,41 +6,71 @@ namespace CrmApp
 {
     class Product
     {
-        public string Code { get; set; }
+        //fields
+        private int category;
+        private String code;
+
+        //property that wraps the field code
+        public string Code
+        {
+            get { return "GR" + code; }
+            set { code = value; }
+        }
+        //other properties
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
+        //calculated property
+        public decimal TotalCost { get { return Price * Quantity; } }
 
-        public decimal GetTotalCost()
+
+        //constructors
+        public Product(int _category)
         {
-            //decimal totalCost;
-            //totalCost = Price * Quantity;
-            //return totalCost;
-            return Price * Quantity;
+             category = _category;
+        }
+
+        //default constructor or empty
+        public Product()
+        {
 
         }
 
+        //method ToString inherented by the Object class
+        public override string ToString()
+        {
+            //return "Name= " + Name +"\n"
+            //   + " Price= "+Price
+            //   + " Quantity= " + Quantity
+            //   + " TotalCost= " + TotalCost;
+            // preferrable way using $
+            return $"Name= {Name} Price= {Price} Quantity= {Quantity} TotalCost= {TotalCost}";
+
+        }
+
+
+
         public void IncreasePrice(decimal percentage)
         {
-            Price *= (1 + percentage);
+            if (category == 1) { 
+                Price *= (1 + 0.1m);
+            }
+            else
+            {
+                Price *= (1 + percentage);
+            }
+                
         }
 
         public void Print()
         {
-            Console.WriteLine( Code);
-            Console.WriteLine( Name);
-            Console.WriteLine( Price);
-            Console.WriteLine( Quantity);
-            Console.WriteLine( GetTotalCost());
+            Console.WriteLine( ToString());
             Console.WriteLine();
         }
  
     }
 
 
-    class Shop
-    {
-
-    }
+    
 }
