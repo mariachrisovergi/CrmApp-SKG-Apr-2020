@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrmApp
+﻿namespace CrmApp
 {
     class Customer
     {
+        public int Id { get; set; }
+        public string Name { get ; set; }
+
+        public int Sex { get; set; }
+
+         
 
     }
 }
