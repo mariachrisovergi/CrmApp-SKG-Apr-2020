@@ -8,6 +8,9 @@ namespace CrmApp
 
     class Ui
     {
+          
+ 
+
         //Factory method
        public Product CreateProduct()
         { 
@@ -34,5 +37,61 @@ namespace CrmApp
             }
 
         }
+
+        public int Menu()
+        {
+            Console.WriteLine("1. Add a product   2. Display basket " +
+                " 3. ShowCategories  4. TotalCost 0. Exit");
+            Console.WriteLine("Give your choice");
+            int choice = 0;
+            try {
+                  choice = Int32.Parse(Console.ReadLine()); 
+            }
+            catch (Exception)
+            {
+
+            }
+            return choice;
+        }
+
+
+        public Customer CreateCustomer()
+        {
+            return null;
+        }
+
+        public Basket CreateBasket()
+        {
+            Basket basket = new Basket();
+            int choice;
+            
+            do
+            {
+                choice = Menu();
+                switch (choice)
+                {
+                    case 1:
+                        Product product = CreateProduct();
+                        basket.AddProduct(product);
+                        break;
+                    case 2:
+                        basket.Print();
+                        break;
+                    case 3:
+                        basket.ShowCategories();
+                        break;
+                    case 4:
+                        Console.WriteLine("TotalCost= " + basket.TotalCost());
+                        break;
+                    case 0:
+                        Console.WriteLine("You selected to exit");
+                        break;
+
+                }
+            }
+            while (choice != 0);
+            return basket;
+        }
+
     }
 }

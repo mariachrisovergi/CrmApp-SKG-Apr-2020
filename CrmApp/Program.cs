@@ -9,22 +9,10 @@ namespace CrmApp
         static void Main()
         {
             Ui ui = new Ui();
-            Basket basket = new Basket();
-            string askUser = "y";
-           while(askUser=="y")
-            {
-                Product product = ui.CreateProduct();
-                basket.AddProduct(product);
-                Console.WriteLine("Do you want to continue? (y to continue)");
-                askUser = Console.ReadLine();
-            }
+            Customer customer = ui.CreateCustomer();
+            Basket basket = ui.CreateBasket();
 
-            basket.Print() ;
-            basket.ShowCategories();
- 
-  
-
-
+            
         }
     }
 }
