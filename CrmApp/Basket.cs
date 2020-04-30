@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace CrmApp
@@ -16,7 +17,7 @@ namespace CrmApp
 
         public void AddProduct(Product product)
         {
-            products.Add(product); 
+            products.Add(product);
         }
 
         public void Print()
@@ -48,13 +49,65 @@ namespace CrmApp
 
         public decimal TotalCost()
         {
-            decimal totalCost = 0;
+            decimal totalCost = 0m;
             foreach (Product p in products)
             {
-                totalCost+=p.TotalCost;
+                totalCost += p.TotalCost;
             }
             return totalCost;
         }
 
+        public string Save(string filename)
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter(filename, true);
+                foreach (Product product in products)
+                {
+                    sw.WriteLine(product.Code + "," +
+                        product.Name + "," +
+                        product.Price + "," +
+                        product.Quantity);
+                }
+                sw.Close();
+            }
+            catch (Exception)
+            {
+                return "An error occured";
+            }
+            return "The data have been saved";
+        }
+
+
+        public string Load(string filename)
+        {
+            try
+            {
+                products.Clear();
+                StreamReader sr = new StreamReader(filename);
+                string line;
+
+                line = sr.ReadLine();
+                while (line != null)
+                {
+                    string[] words = line.Split(",");
+                    Product product = new Product{
+                        Code = words[0],
+                        Name = words[1],
+                        Price = Decimal.Parse(words[2]),
+                        Quantity = Int32.Parse( words[3])
+                    };
+                    products.Add(product);
+                    line = sr.ReadLine();
+                }
+            }
+            catch (Exception)
+            {
+                return "An error occured";
+            }
+
+            return "The file has benn read";
+
+        }
     }
 }
