@@ -19,13 +19,13 @@ namespace CrmApp
             try { 
               
                 Console.WriteLine("Give the code ");
-                product.Code = Console.ReadLine();
+                //product.Code = Console.ReadLine();
                 Console.WriteLine("Give the name ");
                 product.Name = Console.ReadLine();
                 Console.WriteLine("Give the price ");
                 product.Price =Decimal.Parse( Console.ReadLine());
                 Console.WriteLine("Give the quantity ");
-                product.Quantity =Int32.Parse( Console.ReadLine());
+                //product.Quantity =Int32.Parse( Console.ReadLine());
 
                 return product;
             }

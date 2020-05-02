@@ -1,73 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrmApp
+﻿namespace CrmApp
 {
-    class Product
+    public class Product
     {
-        //fields
-        private int category;
-        private String code;
-
-        //property that wraps the field code
-        public string Code
-        {
-            get { return "GR" + code; }
-            set { code = value; }
-        }
-        //other properties
+        public int Category { get; set; }
+        public string ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
-
-        //calculated property
-        public decimal TotalCost { get { return Price * Quantity; } }
-
+        public string Description { get; set; }
 
         //constructors
         //constructor overloading
         public Product(int _category)
         {
-             category = _category;
+            Category = _category;
         }
 
         //default constructor or empty
         public Product()
         {
-
         }
 
         //method ToString inherented by the Object class
         public override string ToString()
         {
-            //return "Name= " + Name +"\n"
-            //   + " Price= "+Price
-            //   + " Quantity= " + Quantity
-            //   + " TotalCost= " + TotalCost;
-            // preferrable way using $
-            return $"Name= {Name} Price= {Price} Quantity= {Quantity} TotalCost= {TotalCost}";
-
+            return $"Name= {Name} Price= {Price}";
         }
 
-
-        //methods
         public void IncreasePrice(decimal percentage)
         {
-            if (category == 1) { 
+            if (Category == 1) { 
                 Price *= (1 + 0.1m);
-            }
-            else
-            {
+            } else {
                 Price *= (1 + percentage);
             }
-                
-        }
-
-        public void Print()
-        {
-            Console.WriteLine( ToString());
-            Console.WriteLine();
         }
 
         public string GetRange()
@@ -78,13 +43,6 @@ namespace CrmApp
                 return "medium";
             else
                 return "hi";
-         
         }
-
-       
-
     }
-
-
-    
 }
