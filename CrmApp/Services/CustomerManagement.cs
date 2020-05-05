@@ -8,6 +8,14 @@ namespace CrmApp.Services
 {
     public class CustomerManagement
     {
+        private CrmDbContext db;
+        
+        public CustomerManagement(CrmDbContext _db)
+        {
+            db = _db;
+        }
+        
+      
         //CRUD
         // create read update delete
         public Customer CreateCustomer(CustomerOption custOption)
@@ -23,11 +31,52 @@ namespace CrmApp.Services
                 Balance = 0,
             };
 
-            using CrmDbContext db = new CrmDbContext();
+            
             db.Customers.Add(customer);
             db.SaveChanges();
       
             return customer;
         }
+
+        public Customer FindCustomerById(int id)
+        {
+             
+            Customer customer = db.Customers.Find(id);
+            return customer;
+        }
+
+        public Customer Update(CustomerOption custOption, int customerId)
+        {
+             
+            Customer customer = db.Customers.Find(customerId);
+
+            if (custOption.FirstName!=null)
+                customer.FirstName = custOption.FirstName;
+            if (custOption.LastName != null)
+                customer.LastName = custOption.LastName;
+            if (custOption.Email != null)
+                customer.Email = custOption.Email;
+            if (custOption.Address != null)
+                customer.Address = custOption.Address;
+
+            db.SaveChanges();
+            return customer;
+        }
+
+        public bool DeleteCustomerById(int id)
+        {
+             
+            Customer customer = db.Customers.Find(id);
+            if (customer != null)
+            {
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+                return true;
+            }
+            return false;    
+ 
+        }
+
+
     }
 }
