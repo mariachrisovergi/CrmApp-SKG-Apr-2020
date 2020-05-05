@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CrmApp.Options;
+using CrmApp.Services;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,11 +10,22 @@ namespace CrmApp
     {
         static void Main()
         {
-            Ui ui = new Ui();
-            Customer customer = ui.CreateCustomer();
-            Basket basket = ui.CreateBasket();
+            CustomerOption custOpt = new CustomerOption
+            {
+                 FirstName = "Maria",
+                 LastName = "Pentagiotissa",
+                 Address = "Athens",
+                 Email ="maria@gmail.com",
 
-            
+            };
+
+            CustomerManagement custMangr = new CustomerManagement();
+            Customer customer = custMangr.CreateCustomer(custOpt);
+
+            Console.WriteLine(
+                $"Id= {customer.Id} Name= {customer.FirstName}");
+
+
         }
     }
 }
