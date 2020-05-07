@@ -2,6 +2,7 @@
 using CrmApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CrmApp.Services
@@ -38,12 +39,20 @@ namespace CrmApp.Services
             return customer;
         }
 
-        public Customer FindCustomerById(int id)
+        public Customer FindCustomerById(int customerId)
         {
-             
-            Customer customer = db.Customers.Find(id);
-            return customer;
+   
+            return db.Customers.Find(customerId); 
         }
+
+        public List<Customer> FindCustomerByName(CustomerOption custOption)
+        {
+            return db.Customers
+                .Where( cust => cust.LastName == custOption.LastName)
+                .Where(cust => cust.FirstName == custOption.FirstName)
+                .ToList();
+        }
+
 
         public Customer Update(CustomerOption custOption, int customerId)
         {

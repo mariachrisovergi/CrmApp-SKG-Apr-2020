@@ -9,8 +9,16 @@ namespace CrmApp
 {
     class Program
     {
+
+        static void AnotherMain()
+        {
+
+        }
+
+
         static void Main()
         {
+            AnotherMain();
             CustomerOption custOpt = new CustomerOption
             {
                  FirstName = "Maria",
@@ -31,9 +39,10 @@ namespace CrmApp
 
 
             //testing reading a customer
-            Customer cx = custMangr.FindCustomerById(2);
+            customer = custMangr.FindCustomerById(2);
+            if (customer!=null)
             Console.WriteLine(
-                $"Id= {cx.Id} Name= {cx.FirstName} Address= {cx.Address}");
+                $"Id= {customer.Id} Name= {customer.FirstName} Address= {customer.Address}");
 
 
             //testing updating
@@ -41,20 +50,20 @@ namespace CrmApp
             {
                  Address = "Lamia"
             };
-            Customer c2 = custMangr.Update(custChangingAddress, 1);
+            customer = custMangr.Update(custChangingAddress, 1);
             Console.WriteLine(
-                $"Id= {c2.Id} Name= {c2.FirstName} Address= {c2.Address}");
+                $"Id= {customer.Id} Name= {customer.FirstName} Address= {customer.Address}");
 
 
             //testing deletion
 
             bool result = custMangr.DeleteCustomerById(2);
             Console.WriteLine($"Result = {result}");
-            Customer cx2 = custMangr.FindCustomerById(2);
-            if (cx2 != null)
+            customer = custMangr.FindCustomerById(2);
+            if (customer != null)
             {
                 Console.WriteLine(
-                $"Id= {cx2.Id} Name= {cx2.FirstName} Address= {cx2.Address}");
+                $"Id= {customer.Id} Name= {customer.FirstName} Address= {customer.Address}");
 
             }
             else
