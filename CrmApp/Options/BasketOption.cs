@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CrmApp.Options
 {
-    class BasketOption
+    public class BasketOption
     {
         public int CustomerId { get; set; }
     }

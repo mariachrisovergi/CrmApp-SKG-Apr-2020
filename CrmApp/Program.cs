@@ -1,4 +1,5 @@
-﻿using CrmApp.Options;
+﻿using CrmApp.Models;
+using CrmApp.Options;
 using CrmApp.Repository;
 using CrmApp.Services;
 using System;
@@ -9,16 +10,12 @@ namespace CrmApp
 {
     class Program
     {
-
-        static void AnotherMain()
-        {
-
-        }
+ 
 
 
         static void Main()
         {
-            AnotherMain();
+            
             CustomerOption custOpt = new CustomerOption
             {
                  FirstName = "Maria",
@@ -70,6 +67,35 @@ namespace CrmApp
             {
                 Console.WriteLine("not found");
             }
+
+            ProductOption prOpt = new ProductOption
+            {
+                   Name ="mila",  Price=1.20m, Quantity =10
+            };
+
+            ProductManagement prodMangr = new ProductManagement(db);
+
+            Product product = prodMangr.CreateProduct(prOpt);
+
+            BasketManagement baskMangr = new BasketManagement(db);
+
+            BasketOption baskOption = new BasketOption
+            {
+                 CustomerId = 3
+            };
+
+            Basket basket = baskMangr.CreateBasket(baskOption);
+            BasketProductOption bskProdOpt = new BasketProductOption
+            {
+                BasketId = 1,
+                ProductId = 1
+            };
+
+
+            BasketProduct baskProd = baskMangr.AddProduct(bskProdOpt);
+
+            basket.BasketProducts.ForEach( p =>
+                Console.WriteLine(p.Product.Name)); 
 
 
         }

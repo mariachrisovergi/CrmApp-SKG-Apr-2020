@@ -48,7 +48,7 @@ namespace CrmApp.Services
         public List<Customer> FindCustomerByName(CustomerOption custOption)
         {
             return db.Customers
-                .Where( cust => cust.LastName == custOption.LastName)
+                .Where(cust => cust.LastName == custOption.LastName)
                 .Where(cust => cust.FirstName == custOption.FirstName)
                 .ToList();
         }
