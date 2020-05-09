@@ -34,6 +34,10 @@ namespace CrmApp.Services
             return product;
         }
 
+        public Product FindProductById(int id)
+        {
+            return db.Products.Find(id);
+        }
 
     }
 }

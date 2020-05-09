@@ -1,6 +1,7 @@
 ﻿using CrmApp.Models;
 using CrmApp.Options;
 using CrmApp.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,14 +49,19 @@ namespace CrmApp.Services
         //FindBasketById
         public Basket FindBasketById(int basketId)
         {
-            return db.Baskets.Find(basketId);
+            return db.Baskets
+                .Include(basket => basket.BasketProducts)
+                .Where(basket => basket.Id== basketId)
+                .First();
         }
 
         //FindCustomerBaskets
         public List<Basket> FindCustomerBaskets(int custId)
         {
             return db.Baskets
+                
                 .Where(basket => basket.Customer.Id == custId)
+                
                 .ToList();
          }
 

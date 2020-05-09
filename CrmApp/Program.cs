@@ -2,18 +2,41 @@
 using CrmApp.Options;
 using CrmApp.Repository;
 using CrmApp.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CrmApp
 {
     class Program
     {
+
+        static void Main()
+        {
+            using CrmDbContext db = new CrmDbContext();
+            BasketManagement baskMangr = new BasketManagement(db);
+
+            Basket basket = baskMangr.FindBasketById(1);
+
+            basket.BasketProducts.ForEach(
+                baskProduct =>
+                   Console.WriteLine(
+                       db.BasketProducts
+                       .Include(b => b.Product)
+                       .Where(b => b.Id == baskProduct.Id)
+                       .First()
+                       .Product.Name
+                   )
+            );
  
 
 
-        static void Main()
+
+
+        }
+            static void Main2()
         {
             
             CustomerOption custOpt = new CustomerOption
@@ -87,7 +110,7 @@ namespace CrmApp
             Basket basket = baskMangr.CreateBasket(baskOption);
             BasketProductOption bskProdOpt = new BasketProductOption
             {
-                BasketId = 1,
+                BasketId = basket.Id,
                 ProductId = 1
             };
 
@@ -99,5 +122,8 @@ namespace CrmApp
 
 
         }
+
+
+
     }
 }
