@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CrmApp.Services
 {
-    public class ProductManagement
+    public class ProductManagement: IProductManager
     {
         private CrmDbContext db;
 

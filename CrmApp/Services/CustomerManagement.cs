@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CrmApp.Services
 {
-    public class CustomerManagement
+    public class CustomerManagement: ICustomerManager
     {
         private CrmDbContext db;
 

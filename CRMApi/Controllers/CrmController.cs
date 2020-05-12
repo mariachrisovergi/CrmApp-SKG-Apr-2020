@@ -18,10 +18,15 @@ namespace CRMApi.Controllers
         
 
         private readonly ILogger<CrmController> _logger;
+        private readonly ICustomerManager custMangr;
+        private readonly IProductManager prodMangr;
 
-        public CrmController(ILogger<CrmController> logger)
+        public CrmController(ILogger<CrmController> logger, 
+            ICustomerManager _custMangr,IProductManager _prodMangr )
         {
             _logger = logger;
+            custMangr = _custMangr;
+            prodMangr = _prodMangr;
         }
 
         [HttpGet("")]
@@ -33,8 +38,7 @@ namespace CRMApi.Controllers
         [HttpGet("all")]
         public List<Customer> GetAllCustomers()
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
+            
             return custMangr.GetAllCustomers();
         } 
 
@@ -43,43 +47,33 @@ namespace CRMApi.Controllers
         [HttpGet("{id}")]
         public Customer GetCustomer(int id)
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
+          
             return custMangr.FindCustomerById(id);
         }
 
          
 
         [HttpPost("")]
-        public Customer PostCustomer(CustomerOption custOpt)
+        public Customer PostCustomer([FromForm] CustomerOption custOpt)
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
-
             return custMangr.CreateCustomer(custOpt);
         }
 
         [HttpPut("{id}")]
         public Customer PutCustomer(int id, CustomerOption custOpt)
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
             return custMangr.Update(custOpt, id);
         }
 
         [HttpDelete("hard/{id}")]
         public bool HardDeleteCustomer(int id)
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
             return custMangr.DeleteCustomerById(id);
         }
 
         [HttpDelete("soft/{id}")]
         public bool SoftDeleteCustomer(int id)
         {
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
             return custMangr.SoftDeleteCustomerById( id);
         }
 

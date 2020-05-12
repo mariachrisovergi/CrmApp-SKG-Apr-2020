@@ -15,8 +15,14 @@ namespace CrmApp
 
         static void Main()
         {
-            using CrmDbContext db = new CrmDbContext();
+ using CrmDbContext db = new CrmDbContext();
             BasketManagement baskMangr = new BasketManagement(db);
+            IProductManager pmng = new ProductManagement(db);
+
+
+
+
+           
 
             Basket basket = baskMangr.FindBasketById(1);
 
