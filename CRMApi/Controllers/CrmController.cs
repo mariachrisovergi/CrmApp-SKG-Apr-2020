@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrmApp;
+using CrmApp.Models;
 using CrmApp.Options;
 using CrmApp.Repository;
 using CrmApp.Services;
@@ -20,13 +21,18 @@ namespace CRMApi.Controllers
         private readonly ILogger<CrmController> _logger;
         private readonly ICustomerManager custMangr;
         private readonly IProductManager prodMangr;
+        private readonly IBasketManager baskMangr;
+
 
         public CrmController(ILogger<CrmController> logger, 
-            ICustomerManager _custMangr,IProductManager _prodMangr )
+            ICustomerManager _custMangr,IProductManager _prodMangr,
+            IBasketManager _baskMangr
+            )
         {
             _logger = logger;
             custMangr = _custMangr;
             prodMangr = _prodMangr;
+            baskMangr = _baskMangr;
         }
 
         [HttpGet("")]
@@ -51,10 +57,17 @@ namespace CRMApi.Controllers
             return custMangr.FindCustomerById(id);
         }
 
-         
+        //           [FromForm]    [FromBody]   [FromRoute]
+        /*
+         The FromForm attribute is for incoming data from a submitted form sent 
+        by the content type application/x-www-url-formencoded w
+            hile the FromBody will parse the model the default way, 
+            which in most cases are sent by the content type application/json,
+ */
+
 
         [HttpPost("")]
-        public Customer PostCustomer([FromForm] CustomerOption custOpt)
+        public Customer PostCustomer( CustomerOption custOpt)
         {
             return custMangr.CreateCustomer(custOpt);
         }
@@ -77,6 +90,27 @@ namespace CRMApi.Controllers
             return custMangr.SoftDeleteCustomerById( id);
         }
 
+        [HttpPost("{customerId}/basket")]
+        public Basket CreateBasket(int customerId)
+        {
+            BasketOption bskOption = new BasketOption
+            {
+                CustomerId = customerId
+        };
+
+            return baskMangr.CreateBasket(bskOption);
+        }
+
+        [HttpPost("basket/{basketId}/product/{productId}")]
+        public BasketProduct AddToBasket(int basketId, int productId)
+        {
+            BasketProductOption bskProd = new BasketProductOption
+            {
+                BasketId = basketId, ProductId = productId
+            };
+
+            return baskMangr.AddProduct(bskProd);
+        }
 
     }
 }
