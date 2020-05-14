@@ -6,14 +6,14 @@ using System.Text;
 
 namespace CrmApp.Repository
 {
-    public class CrmDbContext: DbContext
+    public class CrmDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-       public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketProduct> BasketProducts { get; set; }
 
-        private readonly string connectionString =
+        public readonly static  string ConnectionString  =
             "Data Source=localhost;" +
             "Initial Catalog = SkgCrm; " +
             "Integrated Security = True;";
@@ -23,10 +23,15 @@ namespace CrmApp.Repository
         //"User Id = sa; " +
         //"Password = passw0rd;";
 
+
+        public CrmDbContext(DbContextOptions<CrmDbContext> options)
+                : base(options)
+        { }
+
         protected override void OnConfiguring
             (DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
 

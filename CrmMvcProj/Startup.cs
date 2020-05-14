@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrmApp.Repository;
+using CrmApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +25,11 @@ namespace CrmMvcProj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Definition of injections
+            services.AddDbContext<CrmDbContext>(options =>
+                options.UseSqlServer(CrmDbContext.ConnectionString));
+            services.AddTransient<ICustomerManager, CustomerManagement>();
+
             services.AddControllersWithViews();
         }
 
@@ -44,9 +52,13 @@ namespace CrmMvcProj
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
+                 endpoints.MapControllerRoute(
+                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+          
+
+
+
             });
         }
     }

@@ -3,6 +3,7 @@ using CrmApp.Options;
 using CrmApp.Repository;
 using CrmApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,14 +16,14 @@ namespace CrmApp
 
         static void Main()
         {
- using CrmDbContext db = new CrmDbContext();
-            BasketManagement baskMangr = new BasketManagement(db);
+            var optionsBuilder = new DbContextOptionsBuilder<CrmDbContext>();
+            optionsBuilder.UseSqlServer(CrmDbContext.ConnectionString);
+            using CrmDbContext db = new CrmDbContext(optionsBuilder.Options );
+            
+            
+            IBasketManager baskMangr = new BasketManagement(db);
             IProductManager pmng = new ProductManagement(db);
 
-
-
-
-           
 
             Basket basket = baskMangr.FindBasketById(1);
 
@@ -36,26 +37,31 @@ namespace CrmApp
                        .Product.Name
                    )
             );
- 
+
 
 
 
 
         }
-            static void Main2()
+        static void Main2()
         {
-            
+
+            var optionsBuilder = new DbContextOptionsBuilder<CrmDbContext>();
+            optionsBuilder.UseSqlServer(CrmDbContext.ConnectionString);
+            using CrmDbContext db = new CrmDbContext(optionsBuilder.Options);
+
+            ICustomerManager custMangr = new CustomerManagement(db);
+
             CustomerOption custOpt = new CustomerOption
             {
-                 FirstName = "Maria",
-                 LastName = "Pentagiotissa",
-                 Address = "Athens",
-                 Email ="maria@gmail.com",
+                FirstName = "Maria",
+                LastName = "Pentagiotissa",
+                Address = "Athens",
+                Email = "maria@gmail.com",
 
             };
 
-            using CrmDbContext db = new CrmDbContext();
-            CustomerManagement custMangr = new CustomerManagement(db);
+           
 
 
             // testing the creation of a customer
@@ -66,15 +72,15 @@ namespace CrmApp
 
             //testing reading a customer
             customer = custMangr.FindCustomerById(2);
-            if (customer!=null)
-            Console.WriteLine(
-                $"Id= {customer.Id} Name= {customer.FirstName} Address= {customer.Address}");
+            if (customer != null)
+                Console.WriteLine(
+                    $"Id= {customer.Id} Name= {customer.FirstName} Address= {customer.Address}");
 
 
             //testing updating
             CustomerOption custChangingAddress = new CustomerOption
             {
-                 Address = "Lamia"
+                Address = "Lamia"
             };
             customer = custMangr.Update(custChangingAddress, 1);
             Console.WriteLine(
@@ -99,18 +105,20 @@ namespace CrmApp
 
             ProductOption prOpt = new ProductOption
             {
-                   Name ="mila",  Price=1.20m, Quantity =10
+                Name = "mila",
+                Price = 1.20m,
+                Quantity = 10
             };
 
-            ProductManagement prodMangr = new ProductManagement(db);
+            IProductManager prodMangr = new ProductManagement(db);
 
             Product product = prodMangr.CreateProduct(prOpt);
 
-            BasketManagement baskMangr = new BasketManagement(db);
+            IBasketManager baskMangr = new BasketManagement(db);
 
             BasketOption baskOption = new BasketOption
             {
-                 CustomerId = 3
+                CustomerId = 3
             };
 
             Basket basket = baskMangr.CreateBasket(baskOption);
@@ -123,13 +131,13 @@ namespace CrmApp
 
             BasketProduct baskProd = baskMangr.AddProduct(bskProdOpt);
 
-            basket.BasketProducts.ForEach( p =>
-                Console.WriteLine(p.Product.Name)); 
+            basket.BasketProducts.ForEach(p =>
+               Console.WriteLine(p.Product.Name));
 
 
         }
 
 
-
     }
 }
+ 

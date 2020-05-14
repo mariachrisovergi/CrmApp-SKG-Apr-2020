@@ -6,18 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CrmMvcProj.Models;
+using CrmApp;
+using CrmApp.Options;
+using CrmApp.Services;
 
 namespace CrmMvcProj.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ICustomerManager custMangr;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , ICustomerManager _custMangr  )
         {
             _logger = logger;
+            custMangr = _custMangr;
         }
 
+     
         public IActionResult Index()
         {
             return View();
@@ -27,6 +33,21 @@ namespace CrmMvcProj.Controllers
         {
             return View();
         }
+
+
+        //localhost:port/Home/AddCustomer
+        public IActionResult AddCustomer()
+        {
+            return View();
+        }
+
+        //localhost:port/Home/AddCustomer
+        public IActionResult Customers()
+        {
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
