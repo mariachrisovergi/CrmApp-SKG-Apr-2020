@@ -35,13 +35,13 @@ namespace CrmMvcProj.Controllers
         }
 
 
-        //localhost:port/Home/AddCustomer
+        // localhost:port/Home/AddCustomer
         public IActionResult AddCustomer()
         {
             return View();
         }
 
-        //localhost:port/Home/AddCustomer
+        //localhost:port/Home/Customers
         public IActionResult Customers()
         {
             return View();

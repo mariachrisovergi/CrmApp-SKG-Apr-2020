@@ -2,6 +2,7 @@
 using CrmApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CrmApp.Services
@@ -39,5 +40,9 @@ namespace CrmApp.Services
             return db.Products.Find(id);
         }
 
+        public List<Product> GetAll()
+        {
+            return db.Products.ToList();
+        }
     }
 }

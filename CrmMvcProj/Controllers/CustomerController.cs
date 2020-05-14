@@ -19,12 +19,9 @@ namespace CrmMvcProj.Controllers
               custMangr = _custMangr;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
 
-        //addcustomer
+        //   localhost:port/customer/addcustomer
         [HttpPost]
         public Customer AddCustomer([FromBody] CustomerOption custOpt)
         {

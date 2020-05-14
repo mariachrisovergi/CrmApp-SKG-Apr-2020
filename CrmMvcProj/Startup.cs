@@ -28,7 +28,9 @@ namespace CrmMvcProj
             // Definition of injections
             services.AddDbContext<CrmDbContext>(options =>
                 options.UseSqlServer(CrmDbContext.ConnectionString));
+
             services.AddTransient<ICustomerManager, CustomerManagement>();
+            services.AddTransient<IProductManager, ProductManagement>();
 
             services.AddControllersWithViews();
         }

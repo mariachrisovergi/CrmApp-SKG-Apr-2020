@@ -10,5 +10,7 @@ namespace CrmApp.Services
 
         Product CreateProduct(ProductOption prodOption);
         Product FindProductById(int id);
+
+        List<Product> GetAll();
     }
 }
