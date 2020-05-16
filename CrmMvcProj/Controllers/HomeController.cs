@@ -1,26 +1,29 @@
-﻿using System;
+﻿using CrmApp;
+using CrmApp.Options;
+using CrmApp.Repository;
+using CrmApp.Services;
+using CrmMvcProj.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using CrmMvcProj.Models;
-using CrmApp;
-using CrmApp.Options;
-using CrmApp.Services;
 
 namespace CrmMvcProj.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ICustomerManager custMangr;
-
-        public HomeController(ILogger<HomeController> logger , ICustomerManager _custMangr  )
+        private readonly CrmDbContext _db;
+        private ICustomerManager _custMng;
+        private IBasketManager _bskMng;
+        public HomeController(ILogger<HomeController> logger, CrmDbContext db,
+           ICustomerManager custMng, IBasketManager bskMng)
         {
             _logger = logger;
-            custMangr = _custMangr;
+            _db = db;
+            _custMng = custMng;
+            _bskMng = bskMng;
         }
 
      
@@ -29,25 +32,40 @@ namespace CrmMvcProj.Controllers
             return View();
         }
 
+
         public IActionResult Privacy()
         {
-            return View();
+            _logger.LogInformation("Privacy was selected");
+             return View( );
         }
 
 
-        // localhost:port/Home/AddCustomer
         public IActionResult AddCustomer()
         {
             return View();
         }
 
-        //localhost:port/Home/Customers
         public IActionResult Customers()
         {
-            return View();
+            CustomerModel mycustomers = new CustomerModel
+            {
+                Customers = _custMng.GetAllCustomers()
+            };
+            return View(mycustomers);
         }
 
+        public IActionResult Shopping()
+        {
+            BasketOption baskOption = new BasketOption {  CustomerId=3};
+            Basket basket = _bskMng.CreateBasket(baskOption);
 
+            Shopping shopping = new Models.Shopping {
+                availableProducts = _db.Products.ToList() ,
+                BasketId = basket.Id
+            };
+
+            return View(shopping);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

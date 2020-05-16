@@ -35,10 +35,12 @@ namespace CrmApp.Services
          //AddProduct
          public BasketProduct AddProduct(BasketProductOption bskProd)
         {
+            Product product = db.Products.Find(bskProd.ProductId);
+
             BasketProduct basketProduct = new BasketProduct
             {
                   Basket = db.Baskets.Find(bskProd.BasketId),
-                  Product =db.Products.Find(bskProd.ProductId)
+                  Product =product
             };
 
             db.BasketProducts.Add(basketProduct);

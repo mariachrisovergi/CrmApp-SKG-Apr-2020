@@ -31,20 +31,24 @@ namespace CrmMvcProj
 
             services.AddTransient<ICustomerManager, CustomerManagement>();
             services.AddTransient<IProductManager, ProductManagement>();
+            services.AddTransient<IBasketManager, BasketManagement>();
 
             services.AddControllersWithViews();
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            { 
+                app.UseStatusCodePagesWithRedirects("/Home/Error");
+          //      app.UseDeveloperExceptionPage();
+              }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/Home/Error");
+             //    app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
 

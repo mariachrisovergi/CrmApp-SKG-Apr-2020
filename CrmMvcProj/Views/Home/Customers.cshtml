@@ -1,48 +1,27 @@
-﻿@{
+﻿@model CrmMvcProj.Models.CustomerModel
+@{
     ViewData["Title"] = "Customers";
 }
 
+
 <h1>Customers</h1>
 
-<table id="resultTable" border="1"  
+    <table id="resultTable" border="1"
        style="color:darkslateblue;background-color:lightcyan"
-       cellpadding="1" cellspacing="1"
-       >
-
-
-    <tr><th>Όνομα	</th>  <th>Επώνυμο	</th> <th>Address	</th>  <th>Email	</th></tr>
-</table>
-
-
-<script type="text/javascript">
-
-    function ready(callback){
-    // in case the document is already rendered
-    if (document.readyState!='loading') callback();
-    // modern browsers
-    else if (document.addEventListener) document.addEventListener('DOMContentLoaded', callback);
-    // IE <= 8
-    else document.attachEvent('onreadystatechange', function(){
-        if (document.readyState=='complete') callback();
-    });
-}
-
-ready(function(){
-    // do something
-     loadCustomers()
-});
-
-
-
-
-     
-
-
-     
- 
-
-
-</script>
- 
- 
+       cellpadding="1" cellspacing="1">
+        <tr> <th>Όνομα	</th>  <th>Επώνυμο</th>  <th>Address </th> 
+            <th>Email</th>  
+        </tr>
+    @{
+        foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td> @customer.FirstName</td>
+                <td> @customer.LastName</td>
+                <td> @customer.Address </td>
+                <td> @customer.Email</td>
+            </tr>
+        }
+     }
+        </table>
 

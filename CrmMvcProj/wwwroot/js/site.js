@@ -3,6 +3,38 @@
 
 // Write your JavaScript code.
 
+function addToBasket(  productId, basketId) {
+    actionMethod = "POST"
+    actionUrl = "/customer/add2basket"
+    sendData = {
+        "productId": productId,
+        "basketId": basketId
+     }
+
+ 
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+           
+           productName =  data["name"]
+            $('#MyBasket').append('<li><a href="#">' + productName+'</a></li>');
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+
+}
+
+
+
 
 function submitToServer() {
     actionMethod = "POST"
