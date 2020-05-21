@@ -2,10 +2,12 @@
 using CrmApp.Options;
 using CrmApp.Repository;
 using CrmApp.Services;
+
 using CrmMvcProj.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+
 using System.Diagnostics;
 using System.Linq;
 
@@ -26,19 +28,17 @@ namespace CrmMvcProj.Controllers
             _bskMng = bskMng;
         }
 
-     
+
         public IActionResult Index()
         {
             return View();
         }
 
-
         public IActionResult Privacy()
         {
             _logger.LogInformation("Privacy was selected");
-             return View( );
+            return View();
         }
-
 
         public IActionResult AddCustomer()
         {
@@ -56,11 +56,12 @@ namespace CrmMvcProj.Controllers
 
         public IActionResult Shopping()
         {
-            BasketOption baskOption = new BasketOption {  CustomerId=3};
+            BasketOption baskOption = new BasketOption { CustomerId = 3 };
             Basket basket = _bskMng.CreateBasket(baskOption);
 
-            Shopping shopping = new Models.Shopping {
-                availableProducts = _db.Products.ToList() ,
+            Shopping shopping = new Models.Shopping
+            {
+                availableProducts = _db.Products.ToList(),
                 BasketId = basket.Id
             };
 
