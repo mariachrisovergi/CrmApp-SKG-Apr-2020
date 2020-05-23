@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-function addToBasket(  productId, basketId) {
+function addToBasket(elementid,  productId, basketId) {
     actionMethod = "POST"
     actionUrl = "/customer/add2basket"
     sendData = {
@@ -23,7 +23,21 @@ function addToBasket(  productId, basketId) {
         success: function (data, textStatus, jQxhr) {
            
            productName =  data["name"]
-            $('#MyBasket').append('<li><a href="#">' + productName+'</a></li>');
+            $('#MyBasket').append('<li><a href="#">' + productName + '</a></li>');
+
+
+            contr = '#' + elementid
+    
+            $(contr).off('click');
+
+            $(contr).click(function () {
+                alert("cannot buy")
+            });
+
+
+           //     .attr("disabled", "disabled");
+
+
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -33,7 +47,36 @@ function addToBasket(  productId, basketId) {
 
 }
 
+function addProductToServer() {
+    actionMethod = "POST"
+    actionUrl = "/product/AddProduct"
+     sendData = {
+         "Name": $('#Name').val(),
+         "Price": $('#Price').val(),
+         "Quantity": $('#Quantity').val()
+    }
+    alert(JSON.stringify(sendData))
 
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            
+            $('#responseDiv').html(JSON.stringify(data));
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+
+
+}
 
 
 function submitToServer() {
@@ -46,9 +89,6 @@ function submitToServer() {
         "Email": $('#Email').val()
     }
 
-    alert(JSON.stringify(sendData))
-
-   
     $.ajax({
         url: actionUrl,
         dataType: 'json',
@@ -58,7 +98,13 @@ function submitToServer() {
         contentType: 'application/json',
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            $('#responseDiv').html( JSON.stringify(data) );
+            $('#responseDiv').html(JSON.stringify(data));
+
+            $('#FirstName').val("");
+            $('#LastName').val("")
+            $('#Address').val("")
+            $('#Email').val("")
+
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);

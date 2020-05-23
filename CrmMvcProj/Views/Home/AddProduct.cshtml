@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "AddProduct";
+}
+
+<h1>AddProduct</h1>
+
+   
+
+<form>
+    <table align="center">
+        <tr><td>Name	</td>  <td><input type="text" id="Name" name="Name">	</td>  </tr>
+        <tr><td>Price	</td>  <td> <input type="text" id="Price" name="Price">	</td>  </tr>
+        <tr><td>Quantity	</td>  <td> <input type="text" id="Quantity" name="Quantity">	</td>  </tr>
+         <tr>     <td>
+                <input type="button" onclick="addProductToServer()"
+                       value="Submit">
+    </table>
+
+</form>
+
+<div id="responseDiv">   </div>
+
+
+
+

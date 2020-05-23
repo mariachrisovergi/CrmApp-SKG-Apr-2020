@@ -106,8 +106,8 @@ namespace CrmApp
             ProductOption prOpt = new ProductOption
             {
                 Name = "mila",
-                Price = 1.20m,
-                Quantity = 10
+                Price = "1.20m",
+                Quantity = "10"
             };
 
             IProductManager prodMangr = new ProductManagement(db);

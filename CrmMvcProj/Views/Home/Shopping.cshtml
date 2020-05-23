@@ -4,29 +4,6 @@
 }
 
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    /* Create two equal columns that floats next to each other */
-    .column {
-        float: left;
-        width: 50%;
-        padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style>
-
-
-
 <h1>Shopping</h1>
 
 <div class="row">
@@ -38,7 +15,8 @@
                 foreach (var product in Model.availableProducts)
                 {
                     <li>
-                        <a href="#" onclick="addToBasket(  @product.Id, @Model.BasketId)">
+                        <a href="#" id="prod@(product.Id)" 
+                           onclick="addToBasket('prod@(product.Id)',  @product.Id, @Model.BasketId)">
                             @product.Name
                         </a>
                     </li>
@@ -46,12 +24,15 @@
             }
         </ol>
     </div>
+
     <div class="column" style="background-color:#bbb;">
         <h2>Current Basket</h2>
         <ul id="MyBasket">
         </ul>
     </div>
 </div>
+
+
 <button>Finalize basket</button>
 
 

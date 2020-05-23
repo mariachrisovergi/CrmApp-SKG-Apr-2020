@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CrmMvcProj.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CustomerController : Controller
     {
 
@@ -22,7 +24,7 @@ namespace CrmMvcProj.Controllers
             bskMng = _bskMng;
         }
 
-        [HttpPost]
+        [HttpPost("Add2basket")]
        public BasketItem Add2basket([FromBody] BasketProductOption baskoption)
         {
              return new BasketItem { Name = bskMng.AddProduct(baskoption).Product.Name };
@@ -31,13 +33,14 @@ namespace CrmMvcProj.Controllers
 
 
         //   localhost:port/customer/addcustomer
-        [HttpPost]
+        [HttpPost("AddCustomer")]
         public Customer AddCustomer([FromBody] CustomerOption custOpt)
         {
             return custMangr.CreateCustomer(custOpt);
         }
 
         //get all
+        [HttpGet("GetAllCustomers")]
         public List<Customer> GetAllCustomers()
         {
             return custMangr.GetAllCustomers();

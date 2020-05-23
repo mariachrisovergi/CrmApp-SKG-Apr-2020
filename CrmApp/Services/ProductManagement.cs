@@ -21,11 +21,12 @@ namespace CrmApp.Services
         // create read update delete
         public Product CreateProduct(ProductOption prodOption)
         {
+            try { 
             Product product = new Product
             {
                  Name = prodOption.Name,
-                 Price = prodOption.Price,
-                 Quantity = prodOption.Quantity,
+                 Price = Decimal.Parse( prodOption.Price),
+                 Quantity = Int32.Parse(prodOption.Quantity),
             };
 
 
@@ -33,6 +34,10 @@ namespace CrmApp.Services
             db.SaveChanges();
 
             return product;
+            }           
+            catch(Exception)
+            { return null; }
+
         }
 
         public Product FindProductById(int id)

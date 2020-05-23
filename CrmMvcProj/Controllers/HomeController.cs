@@ -11,6 +11,7 @@ using System.Linq;
 
 namespace CrmMvcProj.Controllers
 {
+    [Route("[controller]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,25 +27,41 @@ namespace CrmMvcProj.Controllers
             _bskMng = bskMng;
         }
 
-     
+
+        [HttpGet("")]
+        public IActionResult Home()
+        {
+            return View("Index");
+        }
+
+        [HttpGet("Index")]
         public IActionResult Index()
         {
             return View();
         }
 
-
+        [HttpGet("Privacy")]
         public IActionResult Privacy()
         {
             _logger.LogInformation("Privacy was selected");
              return View( );
         }
 
-
+        [HttpGet("AddCustomer")]
         public IActionResult AddCustomer()
         {
             return View();
         }
 
+         [HttpGet("AddProduct")]
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
+
+
+        [HttpGet("Customer")]
         public IActionResult Customers()
         {
             CustomerModel mycustomers = new CustomerModel
@@ -54,8 +71,13 @@ namespace CrmMvcProj.Controllers
             return View(mycustomers);
         }
 
+
+
+        [HttpGet("Shopping")]
         public IActionResult Shopping()
         {
+
+
             BasketOption baskOption = new BasketOption {  CustomerId=3};
             Basket basket = _bskMng.CreateBasket(baskOption);
 
@@ -67,6 +89,10 @@ namespace CrmMvcProj.Controllers
             return View(shopping);
         }
 
+
+
+
+        [HttpGet("Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

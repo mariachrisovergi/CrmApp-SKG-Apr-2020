@@ -29,9 +29,9 @@ namespace CrmMvcProj
             services.AddDbContext<CrmDbContext>(options =>
                 options.UseSqlServer(CrmDbContext.ConnectionString));
 
-            services.AddTransient<ICustomerManager, CustomerManagement>();
-            services.AddTransient<IProductManager, ProductManagement>();
-            services.AddTransient<IBasketManager, BasketManagement>();
+            services.AddScoped<ICustomerManager, CustomerManagement>();
+            services.AddScoped<IProductManager, ProductManagement>();
+            services.AddScoped<IBasketManager, BasketManagement>();
 
             services.AddControllersWithViews();
             services.AddLogging();
