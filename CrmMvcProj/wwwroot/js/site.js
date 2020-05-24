@@ -5,7 +5,7 @@
 
 function addToBasket(elementid,  productId, basketId) {
     actionMethod = "POST"
-    actionUrl = "/customer/add2basket"
+    actionUrl = "/apicustomer/add2basket"
     sendData = {
         "productId": productId,
         "basketId": basketId
@@ -49,7 +49,7 @@ function addToBasket(elementid,  productId, basketId) {
 
 function addProductToServer() {
     actionMethod = "POST"
-    actionUrl = "/product/AddProduct"
+    actionUrl = "/apiproduct/AddProduct"
      sendData = {
          "Name": $('#Name').val(),
          "Price": $('#Price').val(),
@@ -81,7 +81,7 @@ function addProductToServer() {
 
 function submitToServer() {
     actionMethod = "POST"
-    actionUrl = "/customer/addcustomer"
+    actionUrl = "/apicustomer/addcustomer"
     sendData = {
         "FirstName": $('#FirstName').val(),
         "LastName": $('#LastName').val(),
@@ -104,6 +104,11 @@ function submitToServer() {
             $('#LastName').val("")
             $('#Address').val("")
             $('#Email').val("")
+
+
+            customerId= data["id"]
+            alert('You have successfully registered')
+            window.open("/Home/Shopping?customerId=" + customerId, "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {

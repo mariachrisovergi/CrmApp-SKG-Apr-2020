@@ -6,6 +6,6 @@ namespace CrmApp.Options
 {
     public class BasketOption
     {
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
     }
 }

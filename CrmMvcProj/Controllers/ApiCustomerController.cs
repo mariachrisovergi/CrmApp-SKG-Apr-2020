@@ -12,13 +12,13 @@ namespace CrmMvcProj.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CustomerController : Controller
+    public class ApiCustomerController : Controller
     {
 
         private ICustomerManager custMangr;
         private IBasketManager bskMng;
 
-        public CustomerController(ICustomerManager _custMangr, IBasketManager _bskMng )
+        public ApiCustomerController(ICustomerManager _custMangr, IBasketManager _bskMng )
         {
             custMangr = _custMangr;
             bskMng = _bskMng;
@@ -44,6 +44,13 @@ namespace CrmMvcProj.Controllers
         public List<Customer> GetAllCustomers()
         {
             return custMangr.GetAllCustomers();
+        }
+
+        [HttpGet("FinalizeBasket")]
+        public Basket Finalize(int BasketId)
+        {
+            //to be implemented
+            return null;
         }
 
 

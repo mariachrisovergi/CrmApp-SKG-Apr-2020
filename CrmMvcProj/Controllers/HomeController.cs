@@ -71,14 +71,14 @@ namespace CrmMvcProj.Controllers
             return View(mycustomers);
         }
 
-
+        //[FromBody] [FromForm] [FromRoute]
 
         [HttpGet("Shopping")]
-        public IActionResult Shopping()
+        public IActionResult Shopping([FromRoute]  int? customerId)
         {
+            //if customerId==null goto login page
 
-
-            BasketOption baskOption = new BasketOption {  CustomerId=3};
+            BasketOption baskOption = new BasketOption {  CustomerId=  customerId  };
             Basket basket = _bskMng.CreateBasket(baskOption);
 
             Shopping shopping = new Models.Shopping {

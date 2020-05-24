@@ -22,10 +22,14 @@ namespace CrmApp.Services
         public Basket CreateBasket(BasketOption baskOption)
         {
             CustomerManagement cstMng = new CustomerManagement(db);
-            Basket basket = new Basket
+            Basket basket = new Basket();
+           if (baskOption.CustomerId !=null )
             {
-                Customer= cstMng.FindCustomerById(baskOption.CustomerId)
-            };
+                Customer customer  = cstMng.FindCustomerById(baskOption.CustomerId.GetValueOrDefault());
+                basket.Customer = customer;
+            }
+
+            
 
             db.Baskets.Add(basket);
             db.SaveChanges();

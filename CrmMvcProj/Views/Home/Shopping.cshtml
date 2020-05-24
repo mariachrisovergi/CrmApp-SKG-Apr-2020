@@ -3,6 +3,8 @@
     ViewData["Title"] = "Shopping";
 }
 
+ 
+
 
 <h1>Shopping</h1>
 
@@ -15,7 +17,7 @@
                 foreach (var product in Model.availableProducts)
                 {
                     <li>
-                        <a href="#" id="prod@(product.Id)" 
+                        <a href="#" id="prod@(product.Id)"
                            onclick="addToBasket('prod@(product.Id)',  @product.Id, @Model.BasketId)">
                             @product.Name
                         </a>

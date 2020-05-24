@@ -23,10 +23,24 @@ namespace CrmApp.Repository
         //"User Id = sa; " +
         //"Password = passw0rd;";
 
+        public static DbContextOptionsBuilder<CrmDbContext> optionsBuilder =
+            new DbContextOptionsBuilder<CrmDbContext>().UseSqlServer(CrmDbContext.ConnectionString);
 
-        public CrmDbContext(DbContextOptions<CrmDbContext> options)
-                : base(options)
-        { }
+
+        public CrmDbContext(DbContextOptions<CrmDbContext> options )
+                       : base(options)
+        {
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+
+        }
+        public CrmDbContext()
+        {
+
+        }
 
         protected override void OnConfiguring
             (DbContextOptionsBuilder optionsBuilder)

@@ -19,15 +19,28 @@ namespace CrmApp
             var optionsBuilder = new DbContextOptionsBuilder<CrmDbContext>();
             optionsBuilder.UseSqlServer(CrmDbContext.ConnectionString);
             using CrmDbContext db = new CrmDbContext(optionsBuilder.Options );
-            
-            
             IBasketManager baskMangr = new BasketManagement(db);
             IProductManager pmng = new ProductManagement(db);
 
+            // create Basket
+            
+            BasketOption baskOption = new BasketOption
+            {
+                CustomerId = 3
+            };
+            Basket basket = baskMangr.CreateBasket(baskOption);
+            BasketProductOption bskProdOpt = new BasketProductOption
+            {
+                BasketId = basket.Id,
+                ProductId = 1
+            };
+            BasketProduct baskProd = baskMangr.AddProduct(bskProdOpt);
+            int basketId = basket.Id;
 
-            Basket basket = baskMangr.FindBasketById(1);
+            //read Basket
+            Basket basket2 = baskMangr.FindBasketById(basketId);
 
-            basket.BasketProducts.ForEach(
+            basket2.BasketProducts.ForEach(
                 baskProduct =>
                    Console.WriteLine(
                        db.BasketProducts
