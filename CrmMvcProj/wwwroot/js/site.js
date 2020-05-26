@@ -3,7 +3,89 @@
 
 // Write your JavaScript code.
 
-function addToBasket(elementid,  productId, basketId) {
+function deleteCustomer(custId) {
+    actionMethod = "DELETE"
+    actionUrl = "/apicustomer/DeleteCustomer"
+    sendData = { "Id": custId}
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            if (data == null) {
+                $('#responseDiv').html("There is no such customer");
+            }
+            else {
+                //to do
+                $('#cusTable' + custId).remove()
+
+                   //     window.open("/Home/Customer", "_self")
+            }
+
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+         
+}
+
+
+
+$('#loginButton').click(
+    function () {
+
+        actionMethod = "POST"
+        actionUrl = "/apicustomer/login"
+        sendData = {
+            "Email": $('#Email').val()
+        }
+        $.ajax({
+            url: actionUrl,
+            dataType: 'json',
+            type: actionMethod,
+            data: JSON.stringify(sendData),
+
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                if (data == null) {
+                    $('#responseDiv').html("There is no such customer");
+                }
+                else {
+                    customerId = data["id"]
+
+                    window.open("/Home/shopping?customerId="+customerId,"_self")
+                }
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+
+
+
+    }
+
+);
+
+//onclick = "registerCustomer()"')
+
+
+
+
+function addToBasket() {
+    elementid = this.id
+    productId = this.value
+    basketId = $("#productsList").value
+
+
+
     actionMethod = "POST"
     actionUrl = "/apicustomer/add2basket"
     sendData = {
@@ -11,7 +93,7 @@ function addToBasket(elementid,  productId, basketId) {
         "basketId": basketId
      }
 
- 
+    alert(JSON.stringify(sendData))
     $.ajax({
         url: actionUrl,
         dataType: 'json',

@@ -45,8 +45,22 @@ namespace CrmApp.Services
             return db.Customers.Find(customerId);
         }
 
+        public Customer FindCustomerByEmail(CustomerOption custOption)
+        {
+            if (custOption == null) return null;
+            if (custOption.Email == null) return null;
+
+            return db.Customers
+                .Where(cust => cust.Email == custOption.Email)
+                .FirstOrDefault();
+        }
+
+
         public List<Customer> FindCustomerByName(CustomerOption custOption)
         {
+            if (custOption == null) return null;
+            if (custOption.LastName == null) return null;
+
             return db.Customers
                 .Where(cust => cust.LastName == custOption.LastName)
                 .Where(cust => cust.FirstName == custOption.FirstName)

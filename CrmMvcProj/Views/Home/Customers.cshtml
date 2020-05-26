@@ -4,25 +4,35 @@
 }
 
 
+ 
+
+
+
+
 <h1>Customers</h1>
 
-    <table id="resultTable" border="1"
+<table id="resultTable" border="1"
        style="color:darkslateblue;background-color:lightcyan"
        cellpadding="1" cellspacing="1">
-        <tr> <th>Όνομα	</th>  <th>Επώνυμο</th>  <th>Address </th> 
-            <th>Email</th>  
-        </tr>
+    <tr>
+        <th>Όνομα	</th>
+        <th>Επώνυμο</th>
+        <th>Address </th>
+        <th>Email</th>
+        <th>Delete</th>
+    </tr>
     @{
-//razor syntax
+        //razor syntax
         foreach (var customer in Model.Customers)
         {
-            <tr>
+            <tr id="cusTable@(customer.Id)">
                 <td> @customer.FirstName</td>
                 <td> @customer.LastName</td>
                 <td> @customer.Address </td>
                 <td> @customer.Email</td>
+                <td> <a href="#" onclick="deleteCustomer(@customer.Id)"> Delete</a></td>
             </tr>
         }
-     }
-        </table>
+    }
+</table>
 

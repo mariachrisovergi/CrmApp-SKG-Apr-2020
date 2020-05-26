@@ -26,7 +26,7 @@ namespace CrmMvcProj
         public void ConfigureServices(IServiceCollection services)
         {
             // Definition of injections
-          services.AddDbContext<CrmDbContext>(options =>  options.UseSqlServer(CrmDbContext.ConnectionString));
+            services.AddDbContext<CrmDbContext>(options =>  options.UseSqlServer(CrmDbContext.ConnectionString));
 
             services.AddScoped<ICustomerManager, CustomerManagement>();
             services.AddScoped<IProductManager, ProductManagement>();

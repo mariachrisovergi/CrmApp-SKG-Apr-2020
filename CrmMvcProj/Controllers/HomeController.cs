@@ -60,6 +60,11 @@ namespace CrmMvcProj.Controllers
         }
 
 
+        [HttpGet("Login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpGet("Customer")]
         public IActionResult Customers()
@@ -70,6 +75,7 @@ namespace CrmMvcProj.Controllers
             };
             return View(mycustomers);
         }
+
 
         //[FromBody] [FromForm] [FromRoute]
 

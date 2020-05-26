@@ -12,13 +12,13 @@
     <div class="column" style="background-color:#aaa;">
         <h2>Available products</h2>
 
-        <ol>
+        <ol id="productsList" value="@Model.BasketId">
             @{
                 foreach (var product in Model.availableProducts)
                 {
                     <li>
-                        <a href="#" id="prod@(product.Id)"
-                           onclick="addToBasket('prod@(product.Id)',  @product.Id, @Model.BasketId)">
+                        <a href="#" id="prod@(product.Id)" value="@(product.Id)"
+                           onclick="addToBasket()">
                             @product.Name
                         </a>
                     </li>

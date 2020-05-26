@@ -14,5 +14,7 @@ namespace CrmApp.Services
         bool DeleteCustomerById(int id);
         bool SoftDeleteCustomerById(int id);
         List<Customer> GetAllCustomers();
+        public Customer FindCustomerByEmail(CustomerOption custOption);
+ 
     }
 }

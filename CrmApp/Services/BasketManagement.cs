@@ -1,6 +1,7 @@
 ﻿using CrmApp.Models;
 using CrmApp.Options;
 using CrmApp.Repository;
+using CrmMvcProj.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,10 +27,9 @@ namespace CrmApp.Services
            if (baskOption.CustomerId !=null )
             {
                 Customer customer  = cstMng.FindCustomerById(baskOption.CustomerId.GetValueOrDefault());
+                if (customer == null) return null;
                 basket.Customer = customer;
             }
-
-            
 
             db.Baskets.Add(basket);
             db.SaveChanges();
@@ -37,7 +37,7 @@ namespace CrmApp.Services
          }
 
          //AddProduct
-         public BasketProduct AddProduct(BasketProductOption bskProd)
+         public BasketItem AddProduct(BasketProductOption bskProd)
         {
             Product product = db.Products.Find(bskProd.ProductId);
 
@@ -49,7 +49,9 @@ namespace CrmApp.Services
 
             db.BasketProducts.Add(basketProduct);
             db.SaveChanges();
-            return basketProduct;
+
+            BasketItem baskItem = new BasketItem { Name = basketProduct.Product.Name };
+            return baskItem;
         }
 
         //FindBasketById

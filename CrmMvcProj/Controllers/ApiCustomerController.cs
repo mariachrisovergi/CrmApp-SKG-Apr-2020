@@ -27,10 +27,22 @@ namespace CrmMvcProj.Controllers
         [HttpPost("Add2basket")]
        public BasketItem Add2basket([FromBody] BasketProductOption baskoption)
         {
-             return new BasketItem { Name = bskMng.AddProduct(baskoption).Product.Name };
+            return bskMng.AddProduct(baskoption);
+       }
+
+        [HttpPost("login")]
+        public Customer LoginCustomer([FromBody] CustomerOption custOpt)
+        {
+            return custMangr.FindCustomerByEmail(custOpt);
         }
 
-
+        [HttpDelete("DeleteCustomer")]
+        public bool DeleteCustomer([FromBody] DeleteModel delModel)
+        {
+            if (delModel!=null )
+            return custMangr.DeleteCustomerById(delModel.Id);
+            else return false;
+        }
 
         //   localhost:port/customer/addcustomer
         [HttpPost("AddCustomer")]

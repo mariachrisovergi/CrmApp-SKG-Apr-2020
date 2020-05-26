@@ -34,7 +34,7 @@ namespace CrmApp
                 BasketId = basket.Id,
                 ProductId = 1
             };
-            BasketProduct baskProd = baskMangr.AddProduct(bskProdOpt);
+              baskMangr.AddProduct(bskProdOpt);
             int basketId = basket.Id;
 
             //read Basket
@@ -142,7 +142,7 @@ namespace CrmApp
             };
 
 
-            BasketProduct baskProd = baskMangr.AddProduct(bskProdOpt);
+             baskMangr.AddProduct(bskProdOpt);
 
             basket.BasketProducts.ForEach(p =>
                Console.WriteLine(p.Product.Name));
