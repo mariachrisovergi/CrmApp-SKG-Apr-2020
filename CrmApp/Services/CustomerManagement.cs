@@ -112,10 +112,10 @@ namespace CrmApp.Services
             return false;
         }
 
-        public List<Customer> GetAllCustomers()
-            {
-            return db.Customers.ToList();
-            }
+        public List<Customer> GetAllCustomers(int pageSize, int pageNumber)
+        {
+            return db.Customers.Skip(pageSize*(pageNumber-1)).Take(pageSize).ToList();
+        }
 
     }
 }

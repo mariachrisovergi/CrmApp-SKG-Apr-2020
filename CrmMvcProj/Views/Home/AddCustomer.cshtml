@@ -8,13 +8,13 @@
 
     <form id="customerDataForm">
         <table align="center">
-            <tr><td>Όνομα	</td>  <td><input type="text" id="FirstName" name="FirstName" placeholder="FirstName">	</td>  </tr>
-            <tr><td>Επώνυμο	</td>  <td> <input type="text" id="LastName" name="LastName"  placeholder="LastName">	</td>  </tr>
-            <tr><td>Address	</td>  <td> <input type="text" id="Address" name="Address" placeholder="Address">	</td>  </tr>
-            <tr><td>Email	</td>  <td> <input type="text" id="Email" name="Email" placeholder="Email">	</td>  </tr>
+            <tr><td>Όνομα	</td>  <td><input type="text" id="FirstName" name="FirstName" placeholder="FirstName" required>	</td>  </tr>
+            <tr><td>Επώνυμο	</td>  <td> <input type="text" id="LastName" name="LastName"  placeholder="LastName" required>	</td>  </tr>
+            <tr><td>Address	</td>  <td> <input type="text" id="Address" name="Address" placeholder="Address" required>	</td>  </tr>
+            <tr><td>Email	</td>  <td> <input type="text" id="Email" name="Email" placeholder="Email" required>	</td>  </tr>
             <tr>
                 <td>
-                    <input type="button" onclick="submitToServer()"
+                    <input type="button" onclick="doAddCustomer()"
                            value="Submit">
         </table>
 

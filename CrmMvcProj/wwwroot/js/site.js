@@ -3,6 +3,45 @@
 
 // Write your JavaScript code.
 
+
+function doUpdateCustomer(custId) {
+    actionMethod = "PUT"
+    actionUrl = "/apicustomer/updatecustomer"
+    sendData = {
+        "firstName": $('#FirstName').val(),
+        "lastName": $('#LastName').val(),
+        "address": $('#Address').val(),
+        "email": $('#Email').val(),
+        "id":custId
+    }
+
+    $.ajax({
+        url: actionUrl,
+        dataType: 'json',
+        type: actionMethod,
+        data: JSON.stringify(sendData),
+
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            $('#responseDiv').html("The update has been made successfully");
+ 
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+
+}
+
+
+function editCustomer(custId) {
+    window.open("/Home/customerEdit?custId=" + custId, "_self");
+}
+
+
+
 function deleteCustomer(custId) {
     actionMethod = "DELETE"
     actionUrl = "/apicustomer/DeleteCustomer"
@@ -161,7 +200,19 @@ function addProductToServer() {
 }
 
 
-function submitToServer() {
+function doAddCustomer() {
+    if ($('#FirstName').val() == "") {
+        alert("fill FirstName");
+        $('#FirstName').focus();
+        return;
+    }
+    if ($('#LastName').val() == "") {
+        alert("fill LastName");
+        $('#LastName').focus();
+        return;
+    }
+
+
     actionMethod = "POST"
     actionUrl = "/apicustomer/addcustomer"
     sendData = {
@@ -190,7 +241,7 @@ function submitToServer() {
 
             customerId= data["id"]
             alert('You have successfully registered')
-            window.open("/Home/Shopping?customerId=" + customerId, "_self")
+      //      window.open("/Home/Shopping?customerId=" + customerId, "_self")
 
         },
         error: function (jqXhr, textStatus, errorThrown) {

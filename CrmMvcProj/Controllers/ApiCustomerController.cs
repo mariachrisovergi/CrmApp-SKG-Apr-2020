@@ -24,6 +24,10 @@ namespace CrmMvcProj.Controllers
             bskMng = _bskMng;
         }
 
+
+
+
+
         [HttpPost("Add2basket")]
        public BasketItem Add2basket([FromBody] BasketProductOption baskoption)
         {
@@ -44,6 +48,22 @@ namespace CrmMvcProj.Controllers
             else return false;
         }
 
+
+        [HttpPut("updatecustomer")]
+        public bool UpdateCustomer([FromBody] ACustomerModel cust)
+        {
+            CustomerOption c = new CustomerOption
+            {
+                 FirstName=cust.FirstName,
+                LastName=cust.LastName,
+                 Address=cust.Address,
+                 Email= cust.Email
+            };
+            custMangr.Update(c, cust.Id);
+            return true;
+        }
+
+
         //   localhost:port/customer/addcustomer
         [HttpPost("AddCustomer")]
         public Customer AddCustomer([FromBody] CustomerOption custOpt)
@@ -55,7 +75,7 @@ namespace CrmMvcProj.Controllers
         [HttpGet("GetAllCustomers")]
         public List<Customer> GetAllCustomers()
         {
-            return custMangr.GetAllCustomers();
+            return custMangr.GetAllCustomers(10,1);
         }
 
         [HttpGet("FinalizeBasket")]

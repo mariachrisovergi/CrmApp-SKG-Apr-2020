@@ -13,7 +13,7 @@ namespace CrmApp.Services
         Customer Update(CustomerOption custOption, int customerId);
         bool DeleteCustomerById(int id);
         bool SoftDeleteCustomerById(int id);
-        List<Customer> GetAllCustomers();
+        List<Customer> GetAllCustomers(int pageSize, int pageNumber);
         public Customer FindCustomerByEmail(CustomerOption custOption);
  
     }

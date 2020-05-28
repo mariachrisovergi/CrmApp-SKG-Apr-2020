@@ -4,11 +4,6 @@
 }
 
 
- 
-
-
-
-
 <h1>Customers</h1>
 
 <table id="resultTable" border="1"
@@ -25,13 +20,14 @@
         //razor syntax
         foreach (var customer in Model.Customers)
         {
-            <tr id="cusTable@(customer.Id)">
-                <td> @customer.FirstName</td>
-                <td> @customer.LastName</td>
-                <td> @customer.Address </td>
-                <td> @customer.Email</td>
-                <td> <a href="#" onclick="deleteCustomer(@customer.Id)"> Delete</a></td>
-            </tr>
+        <tr id="cusTable@(customer.Id)">
+            <td> @customer.FirstName</td>
+            <td> @customer.LastName</td>
+            <td> @customer.Address </td>
+            <td> @customer.Email</td>
+            <td> <a href="#" onclick="deleteCustomer(@customer.Id)"> Delete</a></td>
+            <td> <a href="#" onclick="editCustomer(@customer.Id)"> Edit</a></td>
+        </tr>
         }
     }
 </table>

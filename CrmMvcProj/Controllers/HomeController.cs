@@ -67,20 +67,39 @@ namespace CrmMvcProj.Controllers
         }
 
         [HttpGet("Customer")]
-        public IActionResult Customers()
+        public IActionResult Customers([FromQuery] int?  pageSize, [FromQuery]int? pageNumber)
         {
+
+            int psize = pageSize ?? 5;
+            int pnumber = pageNumber ?? 1;
             CustomerModel mycustomers = new CustomerModel
             {
-                Customers = _custMng.GetAllCustomers()
+                Customers = _custMng.GetAllCustomers(psize, pnumber)
             };
             return View(mycustomers);
         }
 
+        [HttpGet("customerEdit")]
+      public IActionResult   CustomerEdit([FromQuery] int? custId )
+        {
+            if (!custId.HasValue) return NotFound();
+            Customer customer = _custMng.FindCustomerById(custId.Value);
+            ACustomerModel custOption = new ACustomerModel
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Address = customer.Address,
+                Email = customer.Email,
+                Id = customer.Id,
+            };
+            return View(custOption);
+        }
 
-        //[FromBody] [FromForm] [FromRoute]
+
+        //[FromBody] [FromForm] [FromRoute] [FromQuery]
 
         [HttpGet("Shopping")]
-        public IActionResult Shopping([FromRoute]  int? customerId)
+        public IActionResult Shopping([FromQuery]  int? customerId)
         {
             //if customerId==null goto login page
 

@@ -1,0 +1,35 @@
+﻿@model CrmMvcProj.Models.ACustomerModel   
+@{
+    ViewData["Title"] = "CustomerEdit";
+}
+
+
+    <h1 align="center">Customer Edit </h1>
+
+<form id="customerDataForm">
+    <table align="center">
+        <tr><td>Όνομα	</td>  <td><input type="text" id="FirstName" name="FirstName"
+                                           value ="@Model.FirstName"   placeholder="FirstName">	</td>  </tr>
+        <tr><td>Επώνυμο	</td>  <td> <input type="text" id="LastName" name="LastName" 
+                                             value ="@Model.LastName"    placeholder="LastName">	</td>  </tr>
+        <tr><td>Address	</td>  <td> <input type="text" id="Address" name="Address" 
+                                              value ="@Model.Address"
+                                              placeholder="Address">	</td>  </tr>
+        <tr><td>Email	</td>  <td> <input type="text" id="Email" name="Email"
+                                            value ="@Model.Email"
+                                            placeholder="Email">	</td>  </tr>
+        <tr>
+            <td>
+                <input type="button" onclick="doUpdateCustomer(@Model.Id)"
+                       value="Submit">
+    </table>
+
+</form>
+
+<div id="responseDiv">   </div>
+
+
+
+
+
+
